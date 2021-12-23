@@ -4,7 +4,8 @@
 #define vek vector<int>
 #define cc continue
 using namespace std;
-int brd[15][15];
+int brd[15][15] = {};
+int mins[15][15] = {};
 set<pair<int, int>> blank;
 pair<int, int> geth(int index) {
 	set<pair<int, int>>::iterator it = blank.begin();
@@ -35,7 +36,7 @@ void solve(int br[15][15], int last_index) {
 	if (last_index == blank.size()) {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				if (brd[i][j] == -1) {
+				if (mins[i][j]) {
 					cout << "\033[1;31m" << br[i][j] << "\033[0m ";
 					cc;
 				}
@@ -56,13 +57,20 @@ void solve(int br[15][15], int last_index) {
 	}
 }
 int main(void) {
-	for (int i = 0; i < 9; i++)for (int j = 0; j < 9; j++) {
-		int a;
-		cin >> a;
-		if (a == -1)blank.insert({i, j});
-		brd[i][j] = a;
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 9; j++) {
+			int a;
+			cin >> a;
+			if (a == -1) {
+				blank.insert({ i, j });
+				brd[i][j] = -1;
+				mins[i][j] = 1;
+			}
+			else {
+				brd[i][j] = a;
+			}
+		}
 	}
-	cout << endl;
 	solve(brd, 0);
 	cout << "No solution";
 }
