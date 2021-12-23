@@ -71,6 +71,7 @@ int main(void) {
 			}
 		}
 	}
+	cout << endl;
 	solve(brd, 0);
 	cout << "No solution";
 }
